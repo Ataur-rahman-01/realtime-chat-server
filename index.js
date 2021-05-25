@@ -11,7 +11,7 @@ const server = http.createServer(app);
 // server-side
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://realtime-chat-app-socket-io.netlify.app/",
     methods: ["GET", "POST"],
     allowedHeaders: ["my-custom-header"],
     credentials: true,
