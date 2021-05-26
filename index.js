@@ -1,5 +1,5 @@
 const express = require("express");
-const socketio = require("socket.io");
+// const socketio = require("socket.io");
 const http = require("http");
 const cors = require("cors");
 const { addUser, removeUser, getUser, getUserInRoom } = require("./users.js");
@@ -8,16 +8,16 @@ const router = require("./router");
 
 const app = express();
 const server = http.createServer(app);
-// const io = socketio(server);
-app.use(router);
-app.use(cors());
-// server-side
 const io = require("socket.io")(server, {
   cors: {
-    origin: "https://realtime-chat-app-socket-io.netlify.app/",
+    origin: "http://localhost:3000",
     methods: ["GET", "POST"],
+    allowedHeaders: ["my-custom-header"],
+    credentials: true,
   },
 });
+app.use(router);
+app.use(cors());
 io.on("connection", (socket) => {
   console.log("we have new connection");
   socket.on("join", ({ name, room }, callback) => {
