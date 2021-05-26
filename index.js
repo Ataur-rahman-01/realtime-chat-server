@@ -9,20 +9,19 @@ const router = require("./router");
 const app = express();
 const server = http.createServer(app);
 // server-side
-const io = require("socket.io")(server, {
-  origins: ["https://agitated-bardeen-337697.netlify.app/"],
+// const io = require("socket.io")(server, {
+//   origins: ["http://localhost:3000/"],
 
-  handlePreflightRequest: (req, res) => {
-    res.writeHead(200, {
-      "Access-Control-Allow-Origin":
-        "https://agitated-bardeen-337697.netlify.app/",
-      "Access-Control-Allow-Methods": "GET,POST",
-      "Access-Control-Allow-Headers": "my-custom-header",
-      "Access-Control-Allow-Credentials": true,
-    });
-    res.end();
-  },
-});
+//   handlePreflightRequest: (req, res) => {
+//     res.writeHead(200, {
+//       "Access-Control-Allow-Origin": "http://localhost:3000/",
+//       "Access-Control-Allow-Methods": "GET,POST",
+//       "Access-Control-Allow-Headers": "my-custom-header",
+//       "Access-Control-Allow-Credentials": true,
+//     });
+//     res.end();
+//   },
+// });
 // const io = require("socket.io")(server, {
 //   cors: {
 //     origin: "https://condescending-curie-4da913.netlify.app/",
@@ -31,6 +30,14 @@ const io = require("socket.io")(server, {
 //     credentials: true,
 //   },
 // });
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["my-custom-header"],
+    credentials: true,
+  },
+});
 app.use(router);
 app.use(cors());
 io.on("connection", (socket) => {
