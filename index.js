@@ -8,36 +8,21 @@ const router = require("./router");
 
 const app = express();
 const server = http.createServer(app);
-// server-side
-// const io = require("socket.io")(server, {
-//   origins: ["http://localhost:3000/"],
-
-//   handlePreflightRequest: (req, res) => {
-//     res.writeHead(200, {
-//       "Access-Control-Allow-Origin": "http://localhost:3000/",
-//       "Access-Control-Allow-Methods": "GET,POST",
-//       "Access-Control-Allow-Headers": "my-custom-header",
-//       "Access-Control-Allow-Credentials": true,
-//     });
-//     res.end();
-//   },
-// });
-// const io = require("socket.io")(server, {
-//   cors: {
-//     origin: "https://condescending-curie-4da913.netlify.app/",
-//     methods: ["GET", "POST"],
-//     allowedHeaders: ["my-custom-header"],
-//     credentials: true,
-//   },
-// });
 const io = require("socket.io")(server, {
-  cors: {
-    origin: "https://eloquent-meninsky-b5c3a0.netlify.app/",
-    methods: ["GET", "POST"],
-    allowedHeaders: ["my-custom-header"],
-    credentials: true,
+  origins: ["https://cranky-perlman-d2eca7.netlify.app/"],
+
+  handlePreflightRequest: (req, res) => {
+    res.writeHead(200, {
+      "Access-Control-Allow-Origin":
+        "https://cranky-perlman-d2eca7.netlify.app/",
+      "Access-Control-Allow-Methods": "GET,POST",
+      "Access-Control-Allow-Headers": "my-custom-header",
+      "Access-Control-Allow-Credentials": true,
+    });
+    res.end();
   },
 });
+
 app.use(router);
 app.use(cors());
 io.on("connection", (socket) => {
