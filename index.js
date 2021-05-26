@@ -9,7 +9,7 @@ const router = require("./router");
 const app = express();
 const server = http.createServer(app);
 // server-side
-const io = require("socket.io")(httpServer, {
+const io = require("socket.io")(server, {
   origins: ["https://condescending-curie-4da913.netlify.app/"],
 
   handlePreflightRequest: (req, res) => {
