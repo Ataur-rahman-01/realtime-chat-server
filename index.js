@@ -10,11 +10,12 @@ const app = express();
 const server = http.createServer(app);
 // server-side
 const io = require("socket.io")(server, {
-  origins: ["https://dreamy-haibt-ee6708.netlify.app/"],
+  origins: ["https://agitated-bardeen-337697.netlify.app/"],
 
   handlePreflightRequest: (req, res) => {
     res.writeHead(200, {
-      "Access-Control-Allow-Origin": "https://dreamy-haibt-ee6708.netlify.app/",
+      "Access-Control-Allow-Origin":
+        "https://agitated-bardeen-337697.netlify.app/",
       "Access-Control-Allow-Methods": "GET,POST",
       "Access-Control-Allow-Headers": "my-custom-header",
       "Access-Control-Allow-Credentials": true,
