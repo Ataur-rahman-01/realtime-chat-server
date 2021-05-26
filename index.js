@@ -8,14 +8,29 @@ const router = require("./router");
 
 const app = express();
 const server = http.createServer(app);
-const io = require("socket.io")(server, {
-  cors: {
-    origin: "https://condescending-curie-4da913.netlify.app/",
-    methods: ["GET", "POST"],
-    allowedHeaders: ["my-custom-header"],
-    credentials: true,
+// server-side
+const io = require("socket.io")(httpServer, {
+  origins: ["https://condescending-curie-4da913.netlify.app/"],
+
+  handlePreflightRequest: (req, res) => {
+    res.writeHead(200, {
+      "Access-Control-Allow-Origin":
+        "https://condescending-curie-4da913.netlify.app/",
+      "Access-Control-Allow-Methods": "GET,POST",
+      "Access-Control-Allow-Headers": "my-custom-header",
+      "Access-Control-Allow-Credentials": true,
+    });
+    res.end();
   },
 });
+// const io = require("socket.io")(server, {
+//   cors: {
+//     origin: "https://condescending-curie-4da913.netlify.app/",
+//     methods: ["GET", "POST"],
+//     allowedHeaders: ["my-custom-header"],
+//     credentials: true,
+//   },
+// });
 app.use(router);
 app.use(cors());
 io.on("connection", (socket) => {
